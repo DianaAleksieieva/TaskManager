@@ -1,0 +1,49 @@
+.dashboard {
+  padding: 20px;
+  margin:auto;
+}
+
+.categoryContainer {
+  display: flex; /* Align categories horizontally */
+  justify-content: space-between;
+  flex-wrap: wrap; /* Allow wrapping for smaller screens */
+}
+
+.categorySection {
+  width: calc((100% - 40px)/5); /* Each category takes up about 1/5 of the screen */
+  margin-right: 0; /* Spacing between categories */
+  border-right: 1px solid lightgrey; /* Add a vertical line between categories */
+  padding-right: 10px; /* Add some padding to the right of each category */
+  box-sizing: border-box;
+}
+
+.categorySection:last-child {
+  border-right: none; /* Remove the border from the last category */
+}
+
+.categorySection h2 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+
+h4 {
+  margin: 0;
+}
+
+@media (max-width: 1024px) {
+  .categorySection {
+    flex: 1 1 calc(50% - 0px); 
+  }
+}
+
+@media (max-width: 600px) {
+  .categorySection {
+    flex: 1 1 100%; 
+  }
+}

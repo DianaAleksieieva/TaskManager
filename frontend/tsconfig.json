@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "target": "es6",                         // Upgraded to ES6, as ES5 is outdated.
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,                          // Ensures strict type-checking options.
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",                      // Using ESNext for modern module resolution.
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,                          // Ensures no output is emitted.
+    "jsx": "react-jsx",                      // Updated JSX mode for React 17 and onwards.
+    "incremental": true,                     // Enable incremental compilation for faster builds.
+    "strictNullChecks": true,                // Ensures strict null checks.
+    "noUnusedLocals": true,                  // Avoid unused local variables in your code.
+    "noUnusedParameters": true               // Avoid unused parameters in functions.
+  },
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "node_modules"                           // Exclude node_modules for faster compilation.
+  ]
+}

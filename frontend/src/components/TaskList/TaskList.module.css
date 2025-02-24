@@ -1,0 +1,77 @@
+.categoriesWrap {
+  display: flex;
+  justify-content: space-between; /* Distribute space evenly */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Light black line at the bottom of categories */
+  margin-bottom: 20px;
+}
+
+.taskList {
+  list-style: none;
+  padding: 0;
+}
+
+/* Task Card Styling */
+.categoryItem {
+  box-sizing: border-box;
+  background-color: white;
+  margin-bottom: 10px;
+  width: 100%;
+  transition: transform 0.2s ease-in-out;
+  transition: background-color 0.3s ease; /* Smooth hover effect */
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.1); /* Light border around each category */
+}
+
+.categoryItem:hover {
+  transform: scale(1.02);
+  background-color: #e0e0e0; /* Hover effect for categories */
+}
+
+/* Task Title */
+.taskTitle {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+/* Task Actions */
+.taskActions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+/* Delete Button */
+.deleteButton {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.deleteButton:hover {
+  background-color: #cc0000;
+}
+
+/* Complete Button */
+.completeButton {
+  background-color: #ddd;
+  color: black;
+  border: 1px solid #ccc;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.completeButton:hover {
+  background-color: #ccc;
+}
+
+.completed {
+  background-color: green;
+  color: white;
+  border: 1px solid green;
+}
