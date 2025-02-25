@@ -1,0 +1,87 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  min-width: 400px;
+}
+.inputWrap {
+    margin: auto;
+    text-align: center;
+    width: 90%;
+}
+.modalInput {
+width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  box-sizing: border-box;
+}
+
+.buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.createButton {
+  padding: 10px 20px;
+  background-color: #ffc300;
+  border: solid 1px #ffc300;
+  color: #000000;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.cancelButton {
+    padding: 10px 20px;
+    background-color: #ff4d4d;
+    border: 0;
+    color: #ffffff;
+    border: solid 1px #ff4d4d;
+    cursor: pointer;
+}
+
+.cancelButton:hover {
+    background-color: #ffffff;
+    color: #000000;
+    border: solid 1px #000000;
+}
+
+
+.createButton:hover {
+  background-color: #ffffff;
+  border: solid 1px #000000;
+}
+.selectButton {
+  width: 100%;
+  padding: 8px;
+  margin: 8px 0;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.selectButton:focus {
+  border-color: #007bff;
+}
+
+.selectButton option {
+  background-color: #fff;
+  color: #333;
+}

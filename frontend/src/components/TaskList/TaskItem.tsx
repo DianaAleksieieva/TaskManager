@@ -17,33 +17,54 @@ interface TaskItemProps {
   onToggleComplete: (id: string, currentStatus: string) => void;
 }
 
-const TaskItem: React.FC<TaskItemProps> = ({ task, onDelete, onToggleComplete }) => {
+const TaskItem: React.FC<TaskItemProps> = ({
+  task,
+  onDelete,
+  onToggleComplete,
+}) => {
   const isCompleted = task.status.toLowerCase() === "completed";
 
   return (
     <li className={styles.categoryItem}>
+      <p
+        className={`${styles.statusBox} ${
+          task.status === "completed"
+            ? styles.statusCompleted
+            : task.status === "pending"
+            ? styles.statusPending
+            : styles.statusInProgress
+        }`}
+      >
+        {task.status}
+      </p>
       <h3 className={styles.taskTitle}>{task.title}</h3>
-      <p>
-        <strong>Status:</strong> {task.status}
+
+      <p className={styles.dueDate}>
+        <strong>Due Date:</strong>{" "}
+        {task.dueDate
+          ? new Date(task.dueDate).toLocaleDateString()
+          : "No due date"}
       </p>
-      <p>
-        <strong>Due Date:</strong> {task.dueDate ? new Date(task.dueDate).toLocaleDateString() : "No due date"}
-      </p>
-      <p>
+      {/* <p>
         <strong>Created At:</strong> {new Date(task.createdAt).toLocaleDateString()}
-      </p>
+      </p> */}
 
       <div className={styles.taskActions}>
         {onDelete && (
-          <button className={styles.deleteButton} onClick={() => onDelete(task._id)}>
+          <button
+            className={styles.deleteButton}
+            onClick={() => onDelete(task._id)}
+          >
             Delete
           </button>
         )}
         <button
-          className={`${styles.completeButton} ${task.status === "Completed" ? styles.completed : ""}`}
+          className={`${styles.completeButton} ${
+            task.status === "Completed" ? styles.completed : ""
+          }`}
           onClick={() => onToggleComplete(task._id, task.status)}
         >
-          {isCompleted ? "✓ Completed" : "✓ Mark as Done"}
+          {isCompleted ? "✓ Completed" : "Done✓"}
         </button>
       </div>
     </li>

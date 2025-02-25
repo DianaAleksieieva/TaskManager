@@ -21,6 +21,7 @@
   padding: 10px;
   border-radius: 5px;
   border: 1px solid rgba(0, 0, 0, 0.1); /* Light border around each category */
+  text-align: left;
 }
 
 .categoryItem:hover {
@@ -32,6 +33,13 @@
 .taskTitle {
   font-size: 18px;
   margin-bottom: 8px;
+  margin-top: 10px;
+}
+
+.dueDate {
+  font-size: 14px;
+  margin-top: 2px;
+  margin-bottom: 2px;
 }
 
 /* Task Actions */
@@ -46,7 +54,7 @@
   background-color: #ff4d4d;
   color: white;
   border: none;
-  padding: 8px 12px;
+  padding: 4px 8px;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.2s;
@@ -61,7 +69,7 @@
   background-color: #ddd;
   color: black;
   border: 1px solid #ccc;
-  padding: 8px 12px;
+  padding: 4px 8px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
@@ -74,4 +82,33 @@
   background-color: green;
   color: white;
   border: 1px solid green;
+}
+
+.statusBox {
+  display: inline-block;
+  padding: 4px 0;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 12px;
+  color: #fff;
+  text-align: left;
+  min-width: 100px;
+  text-align: center;
+  margin: 0;
+}
+
+/* Status Colors */
+.statusCompleted {
+  background-color: #a8e6a2; /* Pastel Green */
+  color: #2d6a4f;
+}
+
+.statusPending {
+  background-color: #d6d6d6; /* Pastel Grey */
+  color: #555;
+}
+
+.statusInProgress {
+  background-color: #a3c4f3; /* Pastel Blue */
+  color: #1e3a8a;
 }

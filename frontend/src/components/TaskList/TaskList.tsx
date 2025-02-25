@@ -2,9 +2,9 @@
 import React, { useEffect, useState } from "react";
 import TaskItem from "./TaskItem"; 
 import styles from "./TaskList.module.css";
-import {deleteTask, updateTaskStatus } from "../../services/taskService";
+import { deleteTask, updateTaskStatus, fetchTasksByCategory } from "../../services/taskService";
 
-interface TaskList {
+interface Task {
   _id: string;
   title: string;
   category: string;
@@ -12,63 +12,60 @@ interface TaskList {
   dueDate: string;
   createdAt: string;
 }
+
 interface ListProps {
   category: string; 
 }
 
 const TaskList: React.FC<ListProps> = ({ category }) => {
-  const [tasks, setTasks] = useState<TaskList[]>([]);
-  const handleDelete = async (taskId: string) => {
-    try {
-      await deleteTask(taskId);
-      setTasks((prevTasks) => prevTasks.filter((task) => task._id !== taskId)); // Remove from UI
-    } catch (error) {
-      console.error("Error deleting task:", error);
-    }
-  };
+  const [tasks, setTasks] = useState<Task[]>([]);
 
-  const handleToggleComplete = async (taskId: string, currentStatus: string) => {
-    try {
-      // Ensure the UI reflects the correct status before toggling
-      const task = tasks.find((t) => t._id === taskId);
-      if (!task) return;
-  
-      if (task.status !== currentStatus) {
-        console.warn("Mismatch between UI and backend status, refreshing tasks...");
-        // Optionally, trigger a re-fetch from the backend here
-        return;
-      }
-  
-      const newStatus = currentStatus === "Completed" ? "Pending" : "Completed";
-      await updateTaskStatus(taskId, newStatus); // Call backend
-  
-      setTasks((prevTasks) =>
-        prevTasks.map((task) =>
-          task._id === taskId ? { ...task, status: newStatus } : task
-        )
-      ); // Update UI
-    } catch (error) {
-      console.error("Error toggling task status:", error);
-    }
-  };
-  
-
+  // Fetch tasks from the service
   useEffect(() => {
-    const fetchTasksByCategory = async () => {
+    const loadTasks = async () => {
       try {
-        const response = await fetch(`http://localhost:5001/api/tasks/category/${category}`);
-        if (!response.ok) {
-          throw new Error(`Failed to fetch tasks for category: ${category}`);
-        }
-        const tasksData = await response.json();
+        const tasksData = await fetchTasksByCategory(category);
         setTasks(tasksData); // Set the fetched tasks in state
       } catch (error) {
         console.error("Error fetching tasks:", error);
       }
     };
 
-    fetchTasksByCategory();
-  }, [category]); // The effect runs every time the category changes
+    if (category) {
+      loadTasks(); // Fetch tasks when category changes
+    }
+  }, [category]);
+
+  // Handle task deletion
+  const handleDelete = async (taskId: string) => {
+    try {
+      await deleteTask(taskId); // Delete task from the backend
+      setTasks((prevTasks) => prevTasks.filter((task) => task._id !== taskId)); // Remove from UI
+    } catch (error) {
+      console.error("Error deleting task:", error);
+    }
+  };
+
+  // Handle task status toggle
+  const handleToggleComplete = async (taskId: string, currentStatus: string) => {
+    try {
+      // Directly toggle status without additional checks
+      const task = tasks.find((t) => t._id === taskId);
+      if (!task) return;
+
+      const newStatus = currentStatus === "Completed" ? "Pending" : "Completed";
+      await updateTaskStatus(taskId, newStatus); // Update backend status
+
+      // Update the status in the UI after successful backend call
+      setTasks((prevTasks) =>
+        prevTasks.map((task) =>
+          task._id === taskId ? { ...task, status: newStatus } : task
+        )
+      );
+    } catch (error) {
+      console.error("Error toggling task status:", error);
+    }
+  };
 
   return (
     <div className={styles.taskWrap}>
@@ -77,12 +74,16 @@ const TaskList: React.FC<ListProps> = ({ category }) => {
       ) : (
         <ul className={styles.taskList}>
           {tasks.map((task) => (
-            <TaskItem key={task._id} task={task} onToggleComplete={handleToggleComplete} onDelete={handleDelete}/>
+            <TaskItem 
+              key={task._id} 
+              task={task} 
+              onToggleComplete={handleToggleComplete} 
+              onDelete={handleDelete}
+            />
           ))}
         </ul>
       )}
     </div>
-    
   );
 };
 

@@ -23,5 +23,9 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.7.3"
   },
-  "description": ""
+  "description": "",
+    "compilerOptions": {
+      "outDir": "./dist",
+      "rootDir": "./src"
+    }
 }

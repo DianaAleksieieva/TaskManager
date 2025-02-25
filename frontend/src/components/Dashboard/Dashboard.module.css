@@ -3,6 +3,7 @@
   margin:auto;
 }
 
+
 .categoryContainer {
   display: flex; /* Align categories horizontally */
   justify-content: space-between;

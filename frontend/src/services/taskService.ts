@@ -1,27 +1,16 @@
 // src/services/taskService.ts
 import axios from "axios";
 
-
-const BASE_URL = "http://localhost:5001/api/tasks"; 
+const BASE_URL = "http://localhost:5001/api/tasks";
 // Fetch tasks by category
 
-export const fetchTasks = async (category: string) => {
-  try {
-    // Correct URL format for category
-    const response = await fetch(`${BASE_URL}/category/${category}`);
-    
-    if (!response.ok) {
-      throw new Error(`Failed to fetch tasks for category: ${category}`);
-    }
-
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Error:", error);
-    return [];
+export const fetchTasksByCategory = async (category: string) => {
+  const response = await fetch(`${BASE_URL}/category/${category}`);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch tasks for category: ${category}`);
   }
+  return response.json(); // Return tasks array
 };
-
 
 // Delete a task
 export const deleteTask = async (taskId: string) => {
@@ -52,9 +41,37 @@ export const markTaskAsCompleted = async (taskId: string) => {
 
 export const updateTaskStatus = async (taskId: string, newStatus: string) => {
   try {
-    const response = await axios.put(`${BASE_URL}/${taskId}`, { status: newStatus });
+    const response = await axios.put(`${BASE_URL}/${taskId}`, {
+      status: newStatus,
+    });
     return response.data;
   } catch (error) {
     throw new Error("Error updating task status");
+  }
+};
+
+export const createTask = async (task: {
+  title: string;
+  category: string;
+  dueDate: string;
+}) => {
+  try {
+    const response = await fetch(`${BASE_URL}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(task),
+    });
+
+    if (!response.ok) {
+      throw new Error("Error creating task");
+    }
+
+    const newTask = await response.json();
+    return newTask;
+  } catch (error) {
+    console.error("Error creating task:", error);
+    throw error;
   }
 };
